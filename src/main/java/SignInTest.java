@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import com.sun.javafx.PlatformUtil;
 
-@SuppressWarnings("restriction")
+
 public class SignInTest {
 	
 
@@ -29,24 +29,26 @@ public class SignInTest {
     @FindBy(id="errors1")
     WebElement msg_ErrorSignIn;
     
-    WebDriver driver = new ChromeDriver();
+    CommonFunctions com = new  CommonFunctions();
     
     
     @Test
     public void shouldThrowAnErrorIfSignInDetailsAreMissing() {
+    	WebDriver driver = com.getDriver();
 
-        setDriverPath();
+        com.setDriverPath();
+        com.disableChromeLocationAccess();
         
         driver.get("https://www.cleartrip.com/");
         driver.manage().window().maximize();
         PageFactory.initElements(driver, this);
         
         link_YourTrips.click();
-        explicitWaitElementVisibility(btn_SignIn);
+        com.explicitWaitElementVisibility(btn_SignIn);
         btn_SignIn.click();
-        explicitWaitElementVisibility(frame_signInPopUp);
-        switchToFrame(frame_signInPopUp);
-        explicitWaitElementVisibility(btn_FrameSignIn);
+        com.explicitWaitElementVisibility(frame_signInPopUp);
+        com.switchToFrame(frame_signInPopUp);
+        com.explicitWaitElementVisibility(btn_FrameSignIn);
         btn_FrameSignIn.click();
 
         String errors = msg_ErrorSignIn.getText();
@@ -54,27 +56,5 @@ public class SignInTest {
         driver.quit();
     }
     
-
-	private void explicitWaitElementVisibility(WebElement element) {
-    	WebDriverWait wait = new WebDriverWait(driver, 10000);
-    	wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-    
-    private void switchToFrame(WebElement frame) {
-    	driver.switchTo().frame(frame);
-    }
-
-	private void setDriverPath() {
-        if (PlatformUtil.isMac()) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
-        }
-        if (PlatformUtil.isWindows()) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        }
-        if (PlatformUtil.isLinux()) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver_linux");
-        }
-    }
-
 
 }
