@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.sun.javafx.PlatformUtil;
@@ -77,7 +78,14 @@ public class CommonFunctions {
     	options.setExperimentalOption("prefs", prefs);
     	caps.setCapability(ChromeOptions.CAPABILITY, options);
     }
-    
+
+    //Select from dropdown by Value
+    public void selectDropDownByValue(WebElement dropDownObject, String valueToSelect) {
+    	Select travellers = new Select(dropDownObject);
+    	travellers.selectByValue(valueToSelect);
+    	
+    	
+    }
     
     
 }
