@@ -23,14 +23,17 @@ public class FlightBookingTest {
     @FindBy(id="ui-id-1")
     WebElement auto_searchResultOrigin;
     
-    @FindBy(id="ui-id-8")
+    @FindBy(id="ui-id-2")
     WebElement auto_searchResultDestination;
     
-    @FindBy(className = "listViewNav")
-    WebElement text_searchSummary;
+    @FindBy(linkText = "All flights")
+    WebElement text_AllFlights;
 
     @FindBy(id="DepartDate")
     WebElement text_DepartDate;
+    
+    @FindBy(xpath="//*[@id=\"ui-datepicker-div\"]/div[2]/table/tbody/tr[2]/td[4]/a")
+    WebElement dateVal;
     
     @FindBy(id="SearchBtn")
     WebElement btn_Search;
@@ -61,26 +64,25 @@ public class FlightBookingTest {
 
         text_DestinationCity.clear();
         text_DestinationCity.sendKeys("Delhi");
-        com.explicitWaitElementVisibility(text_DepartDate);
 
         //wait for the auto complete options to appear for the destination
-        text_DepartDate.click();
-        com.enterDateDDMMYYYYFormat(text_DepartDate, "11/12/2019");
-        //text_DepartDate.submit();
-
         com.explicitWaitElementVisibility(auto_searchResultDestination);
+        
         //select the first item from the destination auto complete list
         List<WebElement> destinationOptions = auto_searchResultDestination.findElements(By.tagName("li"));
         destinationOptions.get(0).click();
-
-
+        
+        com.explicitWaitElementVisibility(text_DepartDate);
+        text_DepartDate.click();
+        com.explicitWaitElementVisibility(dateVal);
+        dateVal.click();
 
         //all fields filled in. Now click on search
         btn_Search.click();
 
-        com.explicitWaitElementVisibility(text_searchSummary);
+        com.explicitWaitElementVisibility(text_AllFlights);
         //verify that result appears for the provided journey search
-        Assert.assertTrue(com.isElementPresent(text_searchSummary));
+        Assert.assertTrue(text_AllFlights.getText().contains("All flights"));
 
         //close the browser
         driver.quit();

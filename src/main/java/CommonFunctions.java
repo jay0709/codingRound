@@ -36,7 +36,7 @@ public class CommonFunctions {
 	//explicitly wait function
 	public void explicitWaitElementVisibility(WebElement element) {
     	WebDriverWait wait = new WebDriverWait(driver, 10000);
-    	wait.until(ExpectedConditions.elementToBeClickable(element));
+    	wait.until(ExpectedConditions.visibilityOf(element));
     }
     
 	//Frame Switch
@@ -78,8 +78,6 @@ public class CommonFunctions {
     	caps.setCapability(ChromeOptions.CAPABILITY, options);
     }
     
-    //Enter Desired Date
-    public void enterDateDDMMYYYYFormat(WebElement dateElement, String date) {
-    	dateElement.sendKeys(date);
-    }
+    
+    
 }
