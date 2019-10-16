@@ -14,14 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.sun.javafx.PlatformUtil;
 
-/**
- * 
- */
-
-/**
- * @author Jayabrata
- *
- */
 @SuppressWarnings("restriction")
 public class CommonFunctions {
 	
